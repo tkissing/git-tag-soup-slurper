@@ -1,6 +1,9 @@
 # git-tag-soup-slurper
 CLI tool to clean up old git tags
 
+## Install
+`npm install -g @tkissing/git-tag-soup-slurper`
+
 ## Usage Examples
 
 ### Delete pre-release tags locally and on remotes

@@ -1,6 +1,8 @@
 # git-tag-soup-slurper
 CLI tool to clean up old git tags
 
+[![Build Status](https://travis-ci.org/tkissing/git-tag-soup-slurper.svg)](https://travis-ci.org/tkissing/git-tag-soup-slurper)
+
 ## Install
 `npm install -g @tkissing/git-tag-soup-slurper`
 

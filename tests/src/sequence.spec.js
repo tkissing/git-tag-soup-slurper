@@ -25,7 +25,7 @@ describe('The sequence module', function () {
         {arg: 5, desc: 'a number'},
         {arg: 'foo', desc: 'a string'},
         {arg: {length: 3}, desc: 'an object with a length property'},
-        {arg: [5], desc: 'an array containing a non-function', msg: 'number is not a function'}
+        {arg: [5], desc: 'an array containing a non-function', msg: /.* is not a function/}
     ];
 
     invalids.forEach(function (invalid) {
@@ -40,7 +40,7 @@ describe('The sequence module', function () {
             }, function (reason) {
                 assert.instanceOf(reason, Error);
 
-                assert.equal(reason.message, invalid.msg || 'Invalid argument');
+                assert.match(reason.message, invalid.msg || /Invalid argument/);
             }).then(done, done);
 
         })

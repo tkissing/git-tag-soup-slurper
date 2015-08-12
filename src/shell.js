@@ -24,9 +24,9 @@ function out(color, error, text) {
         error = false;
     }
 
-    var print = error ? function(line) {
+    var print = error ? function (line) {
         console.error(color(line));
-    } : function(line) {
+    } : function (line) {
         console.log(color(line));
     };
 
@@ -35,7 +35,7 @@ function out(color, error, text) {
     return text;
 }
 
-function truthy (value) {
+function truthy(value) {
     return !!value;
 }
 
@@ -45,7 +45,7 @@ function exec(ignoreerrors, command) {
         ignoreerrors = false;
     }
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         pexec(command, function (err, stdout, stderr) {
             if (err) {
                 error(stderr);

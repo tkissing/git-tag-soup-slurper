@@ -6,7 +6,7 @@ function findprereleases(options, tags) {
 
     var upto = options.upto ? semver.clean(options.upto, loose) : null;
 
-    return tags.filter(function(tag) {
+    return tags.filter(function (tag) {
 
         var semtag = semver.parse(tag, loose);
 

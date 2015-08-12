@@ -19,19 +19,19 @@ function parse(argv) {
         r: ['--excluderemote']
     };
 
-    return nopt(knownOpts, shortHands, argv, 2)
+    return nopt(knownOpts, shortHands, argv, 2);
 }
 
 function run(argv, filter) {
 
     var options = Array.isArray(argv) ? parse(argv) : argv;
 
-    slurp(options, filter).then(function() {
+    slurp(options, filter).then(function () {
 
         shell.success('# All done');
 
         process.exit(0);
-    }, function(reason) {
+    }, function (reason) {
 
         shell.error('#' + reason);
 

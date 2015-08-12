@@ -2,11 +2,13 @@ require('es5-shim/es5-shim.js');
 
 var git = require('./git.js');
 
+var sequence = require('./sequence.js');
+
 var shell = require('./shell.js');
 
 function exclude(excluded, haystack) {
 
-    return (haystack || []).filter(function(val) {
+    return (haystack || []).filter(function (val) {
 
         return (excluded || []).indexOf(val) < 0;
 
@@ -30,7 +32,14 @@ function createCommands(args) {
 function slurp(options, filter) {
 
     function run(commands) {
-        return Promise.all(commands.map(options.dryrun ? shell.notify :  shell.exec.bind(shell, true)));
+        if (options.dryrun) {
+            return Promise.all(commands.map(shell.notify));
+        }
+
+        // run git commands sequentially to avoid lockfile errors
+        sequence(commands.map(function (command) {
+            return shell.exec(true, command);
+        }));
     }
 
     function getRemotes() {
@@ -40,7 +49,7 @@ function slurp(options, filter) {
         return git.remotes().then(exclude.bind(null, options.excluderemote));
     }
 
-    return git.validate().then(function() {
+    return git.validate().then(function () {
         var tags = git.tags().then(filter.bind(null, options));
 
         var remotes = getRemotes();

@@ -4,9 +4,11 @@
   "description": "CLI tool to clean up old git tags",
   "preferGlobal": true,
   "scripts": {
-    "test": "echo \"No Tests!\" && exit -1;",
+    "test": "mocha tests/src/**/*.spec.js",
+
     "#preversion": "the git command below will fail if there is no upstream set for the current branch",
     "preversion": "git rev-parse --abbrev-ref --symbolic-full-name @{u}",
+    "version": "npm test",
     "postversion": "npm publish --access=public && git push && git push --tags"
   },
   "bin": {

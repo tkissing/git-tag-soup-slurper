@@ -4,6 +4,7 @@
   "description": "CLI tool to clean up old git tags",
   "preferGlobal": true,
   "scripts": {
+    "pretest": "grunt lint",
     "test": "grunt test",
     "verify": "grunt verify",
     "dist": "grunt dist",

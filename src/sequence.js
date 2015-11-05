@@ -1,6 +1,6 @@
 /**
  *
- * @param {Array.<Function>} steps
+ * @param {Array.<Function|Promise>} steps
  * @returns {Promise}
  */
 function sequence(steps) {
@@ -14,9 +14,10 @@ function sequence(steps) {
     }
 
     return steps.reduce(function (prev, step) {
-
         return prev.then(function () {
-            return step().then(push);
+            var promise = typeof step == 'function' ? step() : step;
+
+            return promise.then(push);
         });
 
     }, Promise.resolve()).then(function () {

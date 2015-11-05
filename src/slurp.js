@@ -37,8 +37,10 @@ function slurp(options, filter) {
         }
 
         // run git commands sequentially to avoid lockfile errors
-        sequence(commands.map(function (command) {
-            return shell.exec(true, command);
+        return sequence(commands.map(function (command) {
+            return function () {
+                return shell.exec(true, command);
+            };
         }));
     }
 

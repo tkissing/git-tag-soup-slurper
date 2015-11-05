@@ -2,6 +2,12 @@ var chalk = require('chalk');
 
 var pexec = require('child_process').exec;
 
+function debugging() {
+    var debug = process.env.NODE_DEBUG || '';
+
+    return debug == 'true' || debug == 'y' || debug == '1' || debug.indexOf('slurp') > -1;
+}
+
 function success(text) {
     return out(chalk.green, text);
 }
@@ -45,7 +51,14 @@ function exec(ignoreerrors, command) {
         ignoreerrors = false;
     }
 
+    var debug = debugging();
+
     return new Promise(function (resolve, reject) {
+
+        if (debug) {
+            console.log('Running', command);
+        }
+
         pexec(command, function (err, stdout, stderr) {
             if (err) {
                 error(stderr);
@@ -55,6 +68,10 @@ function exec(ignoreerrors, command) {
             }
 
             var lines = (stdout || '').split(/\r?\n/).filter(truthy);
+
+            if (debug) {
+                console.log('Finished', command);
+            }
 
             resolve(lines);
         });

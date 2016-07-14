@@ -6,14 +6,23 @@ function findprereleases(options, tags) {
 
     var upto = options.upto ? semver.clean(options.upto, loose) : null;
 
+    var after = options.after ? semver.clean(options.after, loose) : null;
+
     return tags.filter(function (tag) {
 
         var semtag = semver.parse(tag, loose);
 
         if (semtag) {
-            if (!upto || semver.lte(semtag, upto, loose)) {
-                return semtag.prerelease.length > 0;
+
+            if (upto && semver.gt(semtag, upto, loose)) {
+                return false;
             }
+
+            if (after && semver.lte(semtag, after, loose)) {
+                return false;
+            }
+
+            return semtag.prerelease.length > 0;
         }
 
         return false;

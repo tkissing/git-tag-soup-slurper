@@ -10,6 +10,7 @@ function parse(argv) {
         dryrun: Boolean,
         localonly: Boolean,
         upto: String,
+        after: String,
         excludetag: Array,
         excluderemote: Array
     };
